@@ -1,0 +1,19 @@
+version: "3.1"
+services:
+  webserver:
+    build: docker/images/httpd
+    container_name: webserver-task-2
+    working_dir: /application
+    volumes:
+      - .:/application
+    restart: on-failure
+    ports:
+      - "11280:80" #dev
+
+  php-fpm:
+    build: docker/images/php-fpm
+    container_name: php-fpm-task-2
+    working_dir: /application
+    volumes:
+      - .:/application
+    restart: on-failure
