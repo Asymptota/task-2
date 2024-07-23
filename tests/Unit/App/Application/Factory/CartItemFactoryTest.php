@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\App\Application\Factory;
+namespace App\Tests\Unit\App\Application\Factory;
 
 use App\Application\Cart\Command\AddProductToCart;
 use App\Application\Cart\Command\RemoveProductFromCart;
 use App\Application\Factory\CartItemFactory;
-use App\Domain\Cart\CartItem;
 use App\Domain\Product\Product;
 use App\Domain\Product\ProductType;
 use App\Infrastructure\Repository\InMemory\Products;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\App\Domain\Cart;
+namespace App\Tests\Unit\App\Domain\Cart;
 
 use App\Domain\Cart\Cart;
 use App\Domain\Cart\CartItem;
@@ -39,7 +39,7 @@ class CartTest extends TestCase
 
         $this->assertSame(0, $cart->getTotalPrice());
         $this->assertSame(0, $cart->getFinalTotalPrice());
-        $this->assertSame(0, $cart->getTotalDiscount());
+        $this->assertSame(0, $cart->getTotalDiscountedValue());
     }
 
     public function test_cart_has_item_after_adding_item_to_cart(): void
@@ -74,7 +74,7 @@ class CartTest extends TestCase
 
         $this->assertSame($productPrice * $cartItemQuantity, $cart->getTotalPrice());
         $this->assertSame($productPrice * $cartItemQuantity, $cart->getFinalTotalPrice());
-        $this->assertSame(0, $cart->getTotalDiscount());
+        $this->assertSame(0, $cart->getTotalDiscountedValue());
     }
 
     public function test_cart_with_items_is_empty_after_clearing_cart(): void
@@ -116,7 +116,7 @@ class CartTest extends TestCase
 
         $this->assertSame(0, $cart->getTotalPrice());
         $this->assertSame(0, $cart->getFinalTotalPrice());
-        $this->assertSame(0, $cart->getTotalDiscount());
+        $this->assertSame(0, $cart->getTotalDiscountedValue());
     }
 
     public function test_adding_discount_to_an_empty_cart_results_in_exception(): void
@@ -153,7 +153,7 @@ class CartTest extends TestCase
         $cart->addDiscount($discount);
 
 
-        $this->assertSame($discountAmount, $cart->getTotalDiscount());
+        $this->assertSame($discountAmount, $cart->getTotalDiscountedValue());
     }
 
     public function test_cart_with_items_and_discount_should_have_total_and_total_final_price_different_by_total_discount(): void

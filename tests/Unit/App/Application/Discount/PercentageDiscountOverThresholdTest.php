@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\App\Application\Discount;
+namespace App\Tests\Unit\App\Application\Discount;
 
 use App\Application\Discount\PercentageDiscountOverThreshold;
 use App\Domain\Cart\Cart;
