@@ -20,5 +20,8 @@ Run tests `tests-in-docker-container`
 1. Integer was used for prices storage - Money package should be used for calculations: https://github.com/moneyphp/money
 2. "Entities and properties" - accessibility and readonly option should be checked
 3. Using InMemory repository instead of Doctrine or any other ORM - for sake of "simplicity"
-4. Error handling should be implemented
-5. Logging should be implemented
+
+### TODO
+1. Error handling should be implemented
+2. Logging should be implemented
+3. Factories for tests should be implemented to ride of some boilerplate code
