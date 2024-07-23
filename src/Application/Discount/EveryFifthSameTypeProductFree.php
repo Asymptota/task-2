@@ -25,7 +25,7 @@ final class EveryFifthSameTypeProductFree implements Discount
             $totalDiscount +=  $numberOfFifthItemsOfEachType * $cartItem->getPrice();
         }
 
-        return $totalDiscount <= $cart->getTotalDiscount()
+        return $totalDiscount <= $cart->getTotalDiscountedValue()
             ? null
             : new \App\Domain\Discount\Discount($this::NAME, $totalDiscount);
     }

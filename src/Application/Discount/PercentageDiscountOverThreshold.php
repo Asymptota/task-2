@@ -27,7 +27,7 @@ final class PercentageDiscountOverThreshold implements Discount
 
         $discountValue = (int) ($cartTotalPrice * ($this::PERCENTAGE_DISCOUNT / 100));
 
-        return $discountValue <= $cart->getTotalDiscount()
+        return $discountValue <= $cart->getTotalDiscountedValue()
             ? null
             : new \App\Domain\Discount\Discount($this::NAME, $discountValue);
     }

@@ -20,7 +20,9 @@ class Cart
      */
     private array $discounts;
 
-    public CartTotals $cartTotals;
+    private int $totalPrice = 0;
+
+    private int $totalDiscountedValue = 0;
 
     /**
      * @param UuidInterface $uuid
@@ -29,7 +31,6 @@ class Cart
     {
         $this->cartItems = [];
         $this->discounts = [];
-        $this->cartTotals = new CartTotals();
     }
 
     public function getUuid(): UuidInterface
@@ -53,13 +54,13 @@ class Cart
 
         $this->discounts[$discount->getUuid()->toString()] = $discount;
 
-        $this->cartTotals->discountValue += $discount->getAmount();
+        $this->recalculateTotals();
     }
 
     public function clearDiscounts(): void
     {
         $this->discounts = [];
-        $this->cartTotals->discountValue = 0;
+        $this->totalDiscountedValue = 0;
     }
 
     public function getCartItemByUuid(UuidInterface $uuid): CartItem
@@ -102,17 +103,16 @@ class Cart
 
     public function getTotalPrice(): int
     {
-        return $this->cartTotals->totalPrice;
+        return $this->totalPrice;
     }
 
-    public function getTotalDiscount(): int
+    public function getTotalDiscountedValue(): int
     {
-        return $this->cartTotals->discountValue;
+        return $this->totalDiscountedValue;
     }
-
     public function getFinalTotalPrice(): int
     {
-        return $this->cartTotals->getTotalPriceAfterDiscount();
+        return $this->totalPrice - $this->getTotalDiscountedValue();
     }
 
     /**
@@ -130,13 +130,17 @@ class Cart
             $sum += $item->getQuantity() * $item->getPrice();
         }
 
-        $this->cartTotals->totalPrice = $sum;
-        $this->cartTotals->discountValue = 0;
+        $this->totalPrice = $sum;
+        $this->totalDiscountedValue = array_reduce(
+            $this->discounts,
+            static fn(int $sum, Discount $discount) => $sum + $discount->getAmount(),
+            0
+        );
     }
 
     private function zeroTotals(): void
     {
-        $this->cartTotals->totalPrice = 0;
-        $this->cartTotals->discountValue = 0;
+        $this->totalPrice = 0;
+        $this->totalDiscountedValue = 0;
     }
 }
