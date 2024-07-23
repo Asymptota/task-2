@@ -21,3 +21,4 @@ Run tests `tests-in-docker-container`
 2. "Entities and properties" - accessibility and readonly option should be checked
 3. Using InMemory repository instead of Doctrine or any other ORM - for sake of "simplicity"
 4. Error handling should be implemented
+5. Logging should be implemented
